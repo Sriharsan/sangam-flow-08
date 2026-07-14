@@ -9,12 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CurrentsRouteImport } from './routes/currents'
 import { Route as IndexRouteImport } from './routes/index'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
@@ -23,6 +30,11 @@ const PricingRoute = PricingRouteImport.update({
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -45,42 +57,79 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/currents': typeof CurrentsRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/currents': typeof CurrentsRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/currents': typeof CurrentsRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/currents' | '/faq' | '/platform' | '/pricing'
+  fullPaths:
+    | '/'
+    | '/currents'
+    | '/faq'
+    | '/login'
+    | '/platform'
+    | '/pricing'
+    | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/currents' | '/faq' | '/platform' | '/pricing'
-  id: '__root__' | '/' | '/currents' | '/faq' | '/platform' | '/pricing'
+  to:
+    | '/'
+    | '/currents'
+    | '/faq'
+    | '/login'
+    | '/platform'
+    | '/pricing'
+    | '/register'
+  id:
+    | '__root__'
+    | '/'
+    | '/currents'
+    | '/faq'
+    | '/login'
+    | '/platform'
+    | '/pricing'
+    | '/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CurrentsRoute: typeof CurrentsRoute
   FaqRoute: typeof FaqRoute
+  LoginRoute: typeof LoginRoute
   PlatformRoute: typeof PlatformRoute
   PricingRoute: typeof PricingRoute
+  RegisterRoute: typeof RegisterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -93,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/platform'
       fullPath: '/platform'
       preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -123,8 +179,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CurrentsRoute: CurrentsRoute,
   FaqRoute: FaqRoute,
+  LoginRoute: LoginRoute,
   PlatformRoute: PlatformRoute,
   PricingRoute: PricingRoute,
+  RegisterRoute: RegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
