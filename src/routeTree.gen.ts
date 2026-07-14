@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlatformRouteImport } from './routes/platform'
@@ -28,6 +29,11 @@ import { Route as AuthenticatedAppDeltaRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedAppCurrentsRouteImport } from './routes/_authenticated/app.currents'
 import { Route as AuthenticatedAppBillingRouteImport } from './routes/_authenticated/app.billing'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/demo/billing': typeof DemoBillingRoute
   '/demo/currents': typeof DemoCurrentsRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/demo/billing': typeof DemoBillingRoute
   '/demo/currents': typeof DemoCurrentsRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/demo/billing': typeof DemoBillingRoute
   '/demo/currents': typeof DemoCurrentsRoute
@@ -190,6 +199,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/pricing'
     | '/register'
+    | '/sitemap.xml'
     | '/app'
     | '/demo/billing'
     | '/demo/currents'
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/pricing'
     | '/register'
+    | '/sitemap.xml'
     | '/app'
     | '/demo/billing'
     | '/demo/currents'
@@ -229,6 +240,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/pricing'
     | '/register'
+    | '/sitemap.xml'
     | '/_authenticated/app'
     | '/demo/billing'
     | '/demo/currents'
@@ -250,10 +262,18 @@ export interface RootRouteChildren {
   PlatformRoute: typeof PlatformRoute
   PricingRoute: typeof PricingRoute
   RegisterRoute: typeof RegisterRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -437,17 +457,8 @@ const rootRouteChildren: RootRouteChildren = {
   PlatformRoute: PlatformRoute,
   PricingRoute: PricingRoute,
   RegisterRoute: RegisterRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
