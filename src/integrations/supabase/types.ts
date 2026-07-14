@@ -14,7 +14,96 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      currents: {
+        Row: {
+          assigned_tributary: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          is_demo: boolean
+          name: string
+          user_id: string | null
+        }
+        Insert: {
+          assigned_tributary?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          is_demo?: boolean
+          name: string
+          user_id?: string | null
+        }
+        Update: {
+          assigned_tributary?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          is_demo?: boolean
+          name?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          plan: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          plan?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          plan?: string
+        }
+        Relationships: []
+      }
+      tickets: {
+        Row: {
+          channel: string
+          contact_name: string
+          created_at: string
+          current_type: string
+          id: string
+          is_demo: boolean
+          settled_at: string | null
+          snippet: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          channel: string
+          contact_name: string
+          created_at?: string
+          current_type?: string
+          id?: string
+          is_demo?: boolean
+          settled_at?: string | null
+          snippet: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          channel?: string
+          contact_name?: string
+          created_at?: string
+          current_type?: string
+          id?: string
+          is_demo?: boolean
+          settled_at?: string | null
+          snippet?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
