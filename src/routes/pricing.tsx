@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MarketingNav } from "@/components/sangam/marketing-nav";
 import { MarketingFooter } from "@/components/sangam/marketing-footer";
 import { RevealHeadline } from "@/components/sangam/reveal-headline";
-import { Check, MessageCircle, Users, BarChart3, Shield, Zap, Headphones, LayoutList } from "lucide-react";
+import { Check, X, MessageCircle, Users, BarChart3, Shield, Zap, Headphones, LayoutList } from "lucide-react";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -114,7 +114,7 @@ function Pricing() {
                   <td className="px-5 py-3 flex items-center gap-2"><f.icon size={14} className="text-teal" /> {f.label}</td>
                   {matrix[i].map((v, j) => (
                     <td key={j} className="px-5 py-3">
-                      {v ? <Check size={16} className="text-teal" /> : <span className="text-muted-foreground">—</span>}
+                      {v ? <Check size={16} className="text-teal" /> : <X size={14} className="text-muted-foreground/50" />}
                     </td>
                   ))}
                 </tr>
