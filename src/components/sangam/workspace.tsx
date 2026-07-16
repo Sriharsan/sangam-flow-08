@@ -305,7 +305,6 @@ function BillingView({ ctx }: { ctx: Ctx }) {
           <a href="mailto:hello@sangam.example?subject=Interested%20in%20Pro%20or%20Growth" className="inline-flex items-center gap-2 bg-teal text-silt px-5 py-2.5 rounded-full text-sm" data-cursor>
             <CheckCircle2 size={14} /> Interested in Pro or Growth
           </a>
-          <div className="mono text-xs text-muted-foreground">This is a demo build. No payment processing is active.</div>
         </div>
       )}
     </div>
