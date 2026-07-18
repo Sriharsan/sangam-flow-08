@@ -98,9 +98,9 @@ function Pricing() {
         </div>
 
         {/* Comparison table */}
-        <div className="mt-12 overflow-x-auto border border-border rounded-xl bg-card">
+        <div className="mt-12 max-h-[420px] overflow-auto border border-border rounded-xl bg-card">
           <table className="w-full text-sm">
-            <thead className="sticky top-0 bg-card">
+            <thead className="sticky top-0 z-10 bg-card shadow-[0_1px_0_0_var(--border)]">
               <tr className="border-b border-border">
                 <th className="text-left font-display font-black text-lg px-5 py-4">Features</th>
                 {tiers.map((t) => (
@@ -110,7 +110,7 @@ function Pricing() {
             </thead>
             <tbody>
               {features.map((f, i) => (
-                <tr key={f.label} className={i % 2 ? "bg-muted/30" : ""}>
+                <tr key={f.label} className={i % 2 ? "bg-muted/50" : ""}>
                   <td className="px-5 py-3 flex items-center gap-2"><f.icon size={14} className="text-teal" /> {f.label}</td>
                   {matrix[i].map((v, j) => (
                     <td key={j} className="px-5 py-3">

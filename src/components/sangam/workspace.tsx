@@ -4,6 +4,7 @@ import { LiveTimestamp } from "./live-timestamp";
 import { ThemeToggle } from "./theme-toggle";
 import { TicketCard, type TicketLike } from "./ticket-card";
 import { CountUp } from "./count-up";
+import { DemoChat } from "./demo-chat";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 import { Inbox, Waves, BarChart3, Wallet, Settings2, LogOut, X, CheckCircle2 } from "lucide-react";
@@ -14,6 +15,7 @@ export type Ctx = {
   isDemo: boolean;
   plan: string;
   userName: string;
+  userEmail: string;
   tickets: TicketLike[];
   currents: { id: string; name: string; is_active: boolean; assigned_tributary: string | null }[];
   onLogout?: () => void;
@@ -111,6 +113,13 @@ function ConfluenceView({ ctx }: { ctx: Ctx }) {
         </div>
         <LiveTimestamp />
       </div>
+
+      {ctx.isDemo && (
+        <div className="mb-6 max-w-xl">
+          <DemoChat />
+        </div>
+      )}
+
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {ctx.tickets.map((t) => (
           <TicketCard key={t.id} ticket={t} layoutId={`ticket-${t.id}`} onClick={() => setActive(t)} />
@@ -313,6 +322,7 @@ function BillingView({ ctx }: { ctx: Ctx }) {
 
 function SettingsView({ ctx }: { ctx: Ctx }) {
   const [name, setName] = useState(ctx.userName);
+  useEffect(() => setName(ctx.userName), [ctx.userName]);
   return (
     <div className="max-w-2xl">
       <div className="mono uppercase text-xs tracking-wider text-teal">Settings</div>
@@ -325,7 +335,7 @@ function SettingsView({ ctx }: { ctx: Ctx }) {
           <input value={name} onChange={(e) => setName(e.target.value)} disabled={ctx.isDemo} className="w-full px-4 py-2.5 rounded-lg bg-background border border-border" />
         </Field>
         <Field label="Email">
-          <input value={ctx.userName === "Guest" ? "demo@sangam.example" : ""} readOnly placeholder="your email" className="w-full px-4 py-2.5 rounded-lg bg-muted border border-border text-muted-foreground" />
+          <input value={ctx.userEmail} readOnly placeholder="your email" className="w-full px-4 py-2.5 rounded-lg bg-muted border border-border text-muted-foreground" />
         </Field>
         <Field label="Change password">
           <input type="password" placeholder="New password" disabled={ctx.isDemo} className="w-full px-4 py-2.5 rounded-lg bg-background border border-border" />
@@ -348,7 +358,3 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
     </div>
   );
 }
-
-// Unused import guard
-// eslint-disable-next-line
-const _u = { useEffect };

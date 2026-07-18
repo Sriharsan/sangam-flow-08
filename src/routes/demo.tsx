@@ -24,6 +24,7 @@ function Demo() {
         isDemo: true,
         plan: "demo",
         userName: "Guest",
+        userEmail: "demo@sangam.example",
         tickets: tickets.data ?? [],
         currents: (currents.data ?? []) as any,
       }}

@@ -31,40 +31,26 @@ export function ConfluenceHero() {
       {/* Left stream */}
       <motion.div style={{ x: leftX }} className="absolute inset-0 pointer-events-none">
         {leftIcons.map((Icon, i) => (
-          <motion.div
+          <div
             key={"L" + i}
-            className="absolute"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 1, 1, 0.2],
-              x: [0, 220, 380, 420],
-              y: [0, 40, 60, 80],
-            }}
-            transition={{ duration: 6, delay: i * 1.6, repeat: Infinity, ease: "easeInOut" }}
-            style={{ top: `${20 + i * 12}%`, left: "6%" }}
+            className="absolute animate-[travel-in-left_6s_ease-in-out_infinite]"
+            style={{ top: `${20 + i * 12}%`, left: "6%", animationDelay: `${i * 1.6}s` }}
           >
             <MiniTicket Icon={Icon} tint="bg-teal/15 text-teal" />
-          </motion.div>
+          </div>
         ))}
       </motion.div>
 
       {/* Right stream */}
       <motion.div style={{ x: rightX }} className="absolute inset-0 pointer-events-none hidden md:block">
         {rightIcons.map((Icon, i) => (
-          <motion.div
+          <div
             key={"R" + i}
-            className="absolute"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 1, 1, 0.2],
-              x: [0, -220, -380, -420],
-              y: [0, 40, 60, 80],
-            }}
-            transition={{ duration: 6, delay: 0.8 + i * 1.6, repeat: Infinity, ease: "easeInOut" }}
-            style={{ top: `${20 + i * 12}%`, right: "6%" }}
+            className="absolute animate-[travel-in-right_6s_ease-in-out_infinite]"
+            style={{ top: `${20 + i * 12}%`, right: "6%", animationDelay: `${0.8 + i * 1.6}s` }}
           >
             <MiniTicket Icon={Icon} tint="bg-clay/15 text-clay" />
-          </motion.div>
+          </div>
         ))}
       </motion.div>
 
@@ -74,8 +60,13 @@ export function ConfluenceHero() {
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
       >
         <div className="relative">
-          <div className="absolute inset-0 -m-6 rounded-full border border-teal/30 animate-[ripple_3s_ease-out_infinite]" />
-          <div className="absolute inset-0 -m-6 rounded-full border border-teal/20 animate-[ripple_3s_ease-out_infinite_0.8s]" />
+          {[0, 0.8, 1.6, 2.4, 3.2, 4].map((d) => (
+            <div
+              key={d}
+              className="absolute inset-0 -m-6 rounded-full border border-teal/40 animate-[merge-pulse_1.6s_ease-out_infinite]"
+              style={{ animationDelay: `${d}s` }}
+            />
+          ))}
           <div className="relative w-40 h-40 rounded-full bg-teal/10 border border-teal/40 flex items-center justify-center">
             <div className="text-center">
               <div className="mono uppercase text-[10px] tracking-widest text-teal">The</div>

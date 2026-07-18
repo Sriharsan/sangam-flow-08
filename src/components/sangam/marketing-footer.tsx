@@ -25,7 +25,7 @@ export function MarketingFooter() {
           <div className="mono uppercase text-xs text-silt/60 tracking-wider mb-3">Company</div>
           <ul className="space-y-2 text-sm">
             <li><Link to="/faq">FAQ</Link></li>
-            <li><a href="mailto:hello@sangam.example">Contact</a></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
         <div>

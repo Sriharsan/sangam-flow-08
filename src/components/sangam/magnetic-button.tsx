@@ -23,10 +23,11 @@ export function MagneticButton({ children, variant = "primary", to, label, class
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
       const dist = Math.hypot(dx, dy);
-      if (dist < 60) {
-        el.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+      if (dist < 90) {
+        const pull = 1 - dist / 90;
+        el.style.transform = `translate(${dx * 0.45 * pull}px, ${dy * 0.45 * pull}px) scale(1.04)`;
       } else {
-        el.style.transform = "translate(0,0)";
+        el.style.transform = "translate(0,0) scale(1)";
       }
     };
     window.addEventListener("mousemove", onMove);

@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      chat_rate_limits: {
+        Row: {
+          created_at: string
+          id: number
+          rate_key: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          rate_key: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          rate_key?: string
+        }
+        Relationships: []
+      }
       currents: {
         Row: {
           assigned_tributary: string | null
@@ -43,6 +61,35 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          ticket_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          ticket_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          ticket_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -103,6 +150,38 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      ticket_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          sender: string
+          ticket_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          sender: string
+          ticket_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          sender?: string
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_messages_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

@@ -17,17 +17,18 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as CurrentsRouteImport } from './routes/currents'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoSettingsRouteImport } from './routes/demo.settings'
-import { Route as DemoDeltaRouteImport } from './routes/demo.delta'
-import { Route as DemoCurrentsRouteImport } from './routes/demo.currents'
-import { Route as DemoBillingRouteImport } from './routes/demo.billing'
+import { Route as DemoSettingsRouteImport } from './routes/demo_.settings'
+import { Route as DemoDeltaRouteImport } from './routes/demo_.delta'
+import { Route as DemoCurrentsRouteImport } from './routes/demo_.currents'
+import { Route as DemoBillingRouteImport } from './routes/demo_.billing'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
-import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
-import { Route as AuthenticatedAppDeltaRouteImport } from './routes/_authenticated/app.delta'
-import { Route as AuthenticatedAppCurrentsRouteImport } from './routes/_authenticated/app.currents'
-import { Route as AuthenticatedAppBillingRouteImport } from './routes/_authenticated/app.billing'
+import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app_.settings'
+import { Route as AuthenticatedAppDeltaRouteImport } from './routes/_authenticated/app_.delta'
+import { Route as AuthenticatedAppCurrentsRouteImport } from './routes/_authenticated/app_.currents'
+import { Route as AuthenticatedAppBillingRouteImport } from './routes/_authenticated/app_.billing'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -69,6 +70,11 @@ const CurrentsRoute = CurrentsRouteImport.update({
   path: '/currents',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -79,24 +85,24 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoSettingsRoute = DemoSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DemoRoute,
+  id: '/demo_/settings',
+  path: '/demo/settings',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const DemoDeltaRoute = DemoDeltaRouteImport.update({
-  id: '/delta',
-  path: '/delta',
-  getParentRoute: () => DemoRoute,
+  id: '/demo_/delta',
+  path: '/demo/delta',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const DemoCurrentsRoute = DemoCurrentsRouteImport.update({
-  id: '/currents',
-  path: '/currents',
-  getParentRoute: () => DemoRoute,
+  id: '/demo_/currents',
+  path: '/demo/currents',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const DemoBillingRoute = DemoBillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
-  getParentRoute: () => DemoRoute,
+  id: '/demo_/billing',
+  path: '/demo/billing',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
@@ -105,38 +111,39 @@ const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
 } as any)
 const AuthenticatedAppSettingsRoute =
   AuthenticatedAppSettingsRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => AuthenticatedAppRoute,
+    id: '/app_/settings',
+    path: '/app/settings',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAppDeltaRoute = AuthenticatedAppDeltaRouteImport.update({
-  id: '/delta',
-  path: '/delta',
-  getParentRoute: () => AuthenticatedAppRoute,
+  id: '/app_/delta',
+  path: '/app/delta',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAppCurrentsRoute =
   AuthenticatedAppCurrentsRouteImport.update({
-    id: '/currents',
-    path: '/currents',
-    getParentRoute: () => AuthenticatedAppRoute,
+    id: '/app_/currents',
+    path: '/app/currents',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAppBillingRoute = AuthenticatedAppBillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
-  getParentRoute: () => AuthenticatedAppRoute,
+  id: '/app_/billing',
+  path: '/app/billing',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/currents': typeof CurrentsRoute
-  '/demo': typeof DemoRouteWithChildren
+  '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app': typeof AuthenticatedAppRoute
   '/demo/billing': typeof DemoBillingRoute
   '/demo/currents': typeof DemoCurrentsRoute
   '/demo/delta': typeof DemoDeltaRoute
@@ -148,15 +155,16 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/currents': typeof CurrentsRoute
-  '/demo': typeof DemoRouteWithChildren
+  '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app': typeof AuthenticatedAppRoute
   '/demo/billing': typeof DemoBillingRoute
   '/demo/currents': typeof DemoCurrentsRoute
   '/demo/delta': typeof DemoDeltaRoute
@@ -170,28 +178,30 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/contact': typeof ContactRoute
   '/currents': typeof CurrentsRoute
-  '/demo': typeof DemoRouteWithChildren
+  '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
-  '/demo/billing': typeof DemoBillingRoute
-  '/demo/currents': typeof DemoCurrentsRoute
-  '/demo/delta': typeof DemoDeltaRoute
-  '/demo/settings': typeof DemoSettingsRoute
-  '/_authenticated/app/billing': typeof AuthenticatedAppBillingRoute
-  '/_authenticated/app/currents': typeof AuthenticatedAppCurrentsRoute
-  '/_authenticated/app/delta': typeof AuthenticatedAppDeltaRoute
-  '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/app': typeof AuthenticatedAppRoute
+  '/demo_/billing': typeof DemoBillingRoute
+  '/demo_/currents': typeof DemoCurrentsRoute
+  '/demo_/delta': typeof DemoDeltaRoute
+  '/demo_/settings': typeof DemoSettingsRoute
+  '/_authenticated/app_/billing': typeof AuthenticatedAppBillingRoute
+  '/_authenticated/app_/currents': typeof AuthenticatedAppCurrentsRoute
+  '/_authenticated/app_/delta': typeof AuthenticatedAppDeltaRoute
+  '/_authenticated/app_/settings': typeof AuthenticatedAppSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contact'
     | '/currents'
     | '/demo'
     | '/faq'
@@ -212,6 +222,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/contact'
     | '/currents'
     | '/demo'
     | '/faq'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/contact'
     | '/currents'
     | '/demo'
     | '/faq'
@@ -242,27 +254,32 @@ export interface FileRouteTypes {
     | '/register'
     | '/sitemap.xml'
     | '/_authenticated/app'
-    | '/demo/billing'
-    | '/demo/currents'
-    | '/demo/delta'
-    | '/demo/settings'
-    | '/_authenticated/app/billing'
-    | '/_authenticated/app/currents'
-    | '/_authenticated/app/delta'
-    | '/_authenticated/app/settings'
+    | '/demo_/billing'
+    | '/demo_/currents'
+    | '/demo_/delta'
+    | '/demo_/settings'
+    | '/_authenticated/app_/billing'
+    | '/_authenticated/app_/currents'
+    | '/_authenticated/app_/delta'
+    | '/_authenticated/app_/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ContactRoute: typeof ContactRoute
   CurrentsRoute: typeof CurrentsRoute
-  DemoRoute: typeof DemoRouteWithChildren
+  DemoRoute: typeof DemoRoute
   FaqRoute: typeof FaqRoute
   LoginRoute: typeof LoginRoute
   PlatformRoute: typeof PlatformRoute
   PricingRoute: typeof PricingRoute
   RegisterRoute: typeof RegisterRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  DemoBillingRoute: typeof DemoBillingRoute
+  DemoCurrentsRoute: typeof DemoCurrentsRoute
+  DemoDeltaRoute: typeof DemoDeltaRoute
+  DemoSettingsRoute: typeof DemoSettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -323,6 +340,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CurrentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -337,33 +361,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/settings': {
-      id: '/demo/settings'
-      path: '/settings'
+    '/demo_/settings': {
+      id: '/demo_/settings'
+      path: '/demo/settings'
       fullPath: '/demo/settings'
       preLoaderRoute: typeof DemoSettingsRouteImport
-      parentRoute: typeof DemoRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/demo/delta': {
-      id: '/demo/delta'
-      path: '/delta'
+    '/demo_/delta': {
+      id: '/demo_/delta'
+      path: '/demo/delta'
       fullPath: '/demo/delta'
       preLoaderRoute: typeof DemoDeltaRouteImport
-      parentRoute: typeof DemoRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/demo/currents': {
-      id: '/demo/currents'
-      path: '/currents'
+    '/demo_/currents': {
+      id: '/demo_/currents'
+      path: '/demo/currents'
       fullPath: '/demo/currents'
       preLoaderRoute: typeof DemoCurrentsRouteImport
-      parentRoute: typeof DemoRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/demo/billing': {
-      id: '/demo/billing'
-      path: '/billing'
+    '/demo_/billing': {
+      id: '/demo_/billing'
+      path: '/demo/billing'
       fullPath: '/demo/billing'
       preLoaderRoute: typeof DemoBillingRouteImport
-      parentRoute: typeof DemoRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app': {
       id: '/_authenticated/app'
@@ -372,93 +396,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/settings': {
-      id: '/_authenticated/app/settings'
-      path: '/settings'
+    '/_authenticated/app_/settings': {
+      id: '/_authenticated/app_/settings'
+      path: '/app/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/delta': {
-      id: '/_authenticated/app/delta'
-      path: '/delta'
+    '/_authenticated/app_/delta': {
+      id: '/_authenticated/app_/delta'
+      path: '/app/delta'
       fullPath: '/app/delta'
       preLoaderRoute: typeof AuthenticatedAppDeltaRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/currents': {
-      id: '/_authenticated/app/currents'
-      path: '/currents'
+    '/_authenticated/app_/currents': {
+      id: '/_authenticated/app_/currents'
+      path: '/app/currents'
       fullPath: '/app/currents'
       preLoaderRoute: typeof AuthenticatedAppCurrentsRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/billing': {
-      id: '/_authenticated/app/billing'
-      path: '/billing'
+    '/_authenticated/app_/billing': {
+      id: '/_authenticated/app_/billing'
+      path: '/app/billing'
       fullPath: '/app/billing'
       preLoaderRoute: typeof AuthenticatedAppBillingRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
-interface AuthenticatedAppRouteChildren {
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedAppBillingRoute: typeof AuthenticatedAppBillingRoute
   AuthenticatedAppCurrentsRoute: typeof AuthenticatedAppCurrentsRoute
   AuthenticatedAppDeltaRoute: typeof AuthenticatedAppDeltaRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
 }
 
-const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedAppBillingRoute: AuthenticatedAppBillingRoute,
   AuthenticatedAppCurrentsRoute: AuthenticatedAppCurrentsRoute,
   AuthenticatedAppDeltaRoute: AuthenticatedAppDeltaRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
 }
 
-const AuthenticatedAppRouteWithChildren =
-  AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
-
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
-}
-
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
-
-interface DemoRouteChildren {
-  DemoBillingRoute: typeof DemoBillingRoute
-  DemoCurrentsRoute: typeof DemoCurrentsRoute
-  DemoDeltaRoute: typeof DemoDeltaRoute
-  DemoSettingsRoute: typeof DemoSettingsRoute
-}
-
-const DemoRouteChildren: DemoRouteChildren = {
-  DemoBillingRoute: DemoBillingRoute,
-  DemoCurrentsRoute: DemoCurrentsRoute,
-  DemoDeltaRoute: DemoDeltaRoute,
-  DemoSettingsRoute: DemoSettingsRoute,
-}
-
-const DemoRouteWithChildren = DemoRoute._addFileChildren(DemoRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ContactRoute: ContactRoute,
   CurrentsRoute: CurrentsRoute,
-  DemoRoute: DemoRouteWithChildren,
+  DemoRoute: DemoRoute,
   FaqRoute: FaqRoute,
   LoginRoute: LoginRoute,
   PlatformRoute: PlatformRoute,
   PricingRoute: PricingRoute,
   RegisterRoute: RegisterRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  DemoBillingRoute: DemoBillingRoute,
+  DemoCurrentsRoute: DemoCurrentsRoute,
+  DemoDeltaRoute: DemoDeltaRoute,
+  DemoSettingsRoute: DemoSettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

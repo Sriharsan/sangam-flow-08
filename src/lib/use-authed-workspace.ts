@@ -9,8 +9,12 @@ export function useAuthedCtx(): Ctx | null {
   const nav = useNavigate();
   const qc = useQueryClient();
   const [userId, setUserId] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string>("");
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data.user?.id ?? null);
+      setUserEmail(data.user?.email ?? "");
+    });
   }, []);
   const { tickets, currents, profile } = useUserData(userId);
 
@@ -32,6 +36,7 @@ export function useAuthedCtx(): Ctx | null {
     isDemo: false,
     plan: profile.data?.plan ?? "free",
     userName: profile.data?.full_name ?? "there",
+    userEmail,
     tickets: tickets.data ?? [],
     currents: (currents.data ?? []) as any,
     onLogout,
