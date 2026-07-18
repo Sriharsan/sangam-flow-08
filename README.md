@@ -1,5 +1,7 @@
 # Sangam
 
+**Live:** [sangam-flow-08.vercel.app](https://sangam-flow-08.vercel.app) · **Live demo:** [sangam-flow-08.vercel.app/demo](https://sangam-flow-08.vercel.app/demo)
+
 Sangam is one agent for customer chat and internal work. It runs three Currents, Sales, Support, and Ops, that pick up conversations from WhatsApp, Instagram, and website chat Tributaries. Every conversation lands in one place, the Confluence, and The Delta shows the numbers behind the flow.
 
 This build includes a public marketing site, a login free live demo, and a full authenticated workspace backed by Supabase.
@@ -69,7 +71,7 @@ The new ticket appears in the demo's Confluence feed without a reload, and after
 
 ## Live demo
 
-Once deployed, the public demo lives at `/demo` on the production URL, no account required.
+The public demo lives at [sangam-flow-08.vercel.app/demo](https://sangam-flow-08.vercel.app/demo), no account required.
 
 ## Deploying
 
