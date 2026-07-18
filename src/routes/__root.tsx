@@ -16,6 +16,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CustomCursor } from "@/components/sangam/custom-cursor";
 import { Toaster } from "sonner";
 
+const SITE_URL = "https://sangam-flow-08.vercel.app";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -82,19 +84,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Sangam. Two streams, one current." },
-      { name: "description", content: "One AI agent for customer chat across WhatsApp, Instagram, and website, plus internal tasks, follow ups, and pipeline." },
+      { name: "description", content: "One agent for customer chat across WhatsApp, Instagram, and website, plus internal tasks, follow ups, and pipeline." },
       { name: "author", content: "Sangam" },
+      { name: "theme-color", content: "#1B2A4A" },
       { property: "og:title", content: "Sangam. Two streams, one current." },
-      { property: "og:description", content: "One agent for customer chat and internal work. Tributaries in, currents through, Confluence out." },
+      { property: "og:description", content: "One agent for customer chat and internal work. Tributaries in, Currents through, Confluence out." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:site_name", content: "Sangam" },
+      { property: "og:image", content: `${SITE_URL}/og-image.png` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Sangam. Two streams, one current." },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Sangam. Two streams, one current." },
+      { name: "twitter:description", content: "One agent for customer chat and internal work. Tributaries in, Currents through, Confluence out." },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "icon", href: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { rel: "icon", href: "/favicon-16.png", type: "image/png", sizes: "16x16" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       {
@@ -131,6 +147,12 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <CustomCursor />
